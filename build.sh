@@ -7,8 +7,8 @@ if [ '${INPUT_UPLOAD_URL}' ];then
   RELEASE_ASSETS_UPLOAD_URL=${INPUT_UPLOAD_URL}
 else
   RELEASE_ASSETS_UPLOAD_URL=$(cat ${GITHUB_EVENT_PATH} | jq -r .release.upload_url)
-  RELEASE_ASSETS_UPLOAD_URL=${RELEASE_ASSETS_UPLOAD_URL%\{?name,label\}}
 fi
+RELEASE_ASSETS_UPLOAD_URL=${RELEASE_ASSETS_UPLOAD_URL%\{?name,label\}}
 #RELEASE_ASSETS_UPLOAD_URL='https://uploads.github.com/repos/ibuler/koko/releases/27862783/assets'
 #INPUT_GITHUB_TOKEN=
 
