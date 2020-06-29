@@ -88,10 +88,10 @@ for i in $(ls);do
     continue
   fi
   if [[ $i == *.tar.gz ]];then
-    upload_zip $i && rm -f ${i}
+    upload_zip $i && rm -f ${i} || exit 3
 
     if [[ -f $i.md5 ]];then
-      upload_octet $i.md5 && rm -f ${i}
+      upload_octet $i.md5 && rm -f ${i} || exit 4
     fi
   fi
 done
