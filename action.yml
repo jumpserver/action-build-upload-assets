@@ -1,10 +1,18 @@
 name: 'Hello World'
 description: 'Greet someone and record the time'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  github_token:
+    description: 'GITHUB_TOKEN for uploading releases to Github asserts.'
     required: true
-    default: 'World'
+    default: ''
+  os:  # id of input
+    description: 'os the running programs operating system target: one of darwin, freebsd, linux, and so on.'
+    required: false
+    default: ''
+  arch:
+    description: 'arch is the running programs architecture target: one of 386, amd64, arm, s390x, and so on.'
+    required: false
+    default: ''
 outputs:
   time: # id of output
     description: 'The time we greeted you'
@@ -12,4 +20,6 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.who-to-greet }}
+    - ${{ inputs.github_token }}
+    - ${{ inputs.os }}
+    - ${{ inputs.arch }}
