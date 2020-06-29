@@ -1,6 +1,8 @@
 #!/bin/bash -eux
 #GITHUB_WORKSPACE=/Users/guang/tmp/koko
 
+OS=${INPUT_OS-''}
+ARCH=${INPUT_ARCH-''}
 if [ '${INPUT_UPLOAD_URL}' ];then
   RELEASE_ASSETS_UPLOAD_URL=${INPUT_UPLOAD_URL}
 else
