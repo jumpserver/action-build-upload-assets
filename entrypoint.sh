@@ -1,5 +1,4 @@
-#!/bin/sh -l
+#!/bin/bash -eux
 
-echo "Hello $1"
-time=$(date)
-echo ::set-output name=time::$time
+env
+/build.sh

@@ -1,4 +1,4 @@
-name: 'Hello World'
+name: 'JumpServer build and upload release assets'
 description: 'Greet someone and record the time'
 inputs:
   github_token:
@@ -13,6 +13,10 @@ inputs:
     description: 'arch is the running programs architecture target: one of 386, amd64, arm, s390x, and so on.'
     required: false
     default: ''
+  upload_url:
+    description: 'the url for upload, default to release event url '
+    required: false
+    default: ''
 outputs:
   time: # id of output
     description: 'The time we greeted you'
@@ -23,3 +27,4 @@ runs:
     - ${{ inputs.github_token }}
     - ${{ inputs.os }}
     - ${{ inputs.arch }}
+    - ${{ inputs.upload_url }}
