@@ -1,10 +1,6 @@
 name: 'JumpServer build and upload release assets'
 description: 'Greet someone and record the time'
 inputs:
-  github_token:
-    description: 'GITHUB_TOKEN for uploading releases to Github asserts.'
-    required: true
-    default: ''
   os:  # id of input
     description: 'os the running programs operating system target: one of darwin, freebsd, linux, and so on.'
     required: false

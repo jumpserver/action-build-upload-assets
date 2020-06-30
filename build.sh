@@ -3,6 +3,7 @@
 
 OS=${INPUT_OS-''}
 ARCH=${INPUT_ARCH-''}
+RELEASE_TAG=$(basename ${GITHUB_REF})
 if [ '${INPUT_UPLOAD_URL}' ];then
   RELEASE_ASSETS_UPLOAD_URL=${INPUT_UPLOAD_URL}
 else
@@ -64,7 +65,7 @@ function upload_zip() {
     -X POST \
     --data-binary @${file} \
     -H 'Content-Type: application/gzip' \
-    -H "Authorization: Bearer ${INPUT_GITHUB_TOKEN}" \
+    -H "Authorization: Bearer ${GITHUB_TOKEN}" \
     "${RELEASE_ASSETS_UPLOAD_URL}?name=${file}"
     return $?
 }
@@ -76,7 +77,7 @@ function upload_octet() {
       -X POST \
       --data @${file} \
       -H 'Content-Type: application/octet-stream' \
-      -H "Authorization: Bearer ${INPUT_GITHUB_TOKEN}" \
+      -H "Authorization: Bearer ${GITHUB_TOKEN}" \
       "${RELEASE_ASSETS_UPLOAD_URL}?name=${file}"
    return $?
 }
