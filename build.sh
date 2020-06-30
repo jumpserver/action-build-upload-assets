@@ -94,5 +94,7 @@ for i in $(ls);do
     if [[ -f $i.md5 ]];then
       upload_octet $i.md5 && rm -f ${i} || exit 4
     fi
+  else
+    upload_octet $i && rm -f ${i} || exit 5
   fi
 done
