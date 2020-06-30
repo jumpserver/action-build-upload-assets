@@ -95,6 +95,6 @@ for i in $(ls);do
       upload_octet $i.md5 && rm -f ${i}.md5 || exit 4
     fi
   else
-    upload_octet $i; rm -f ${i}
+    upload_octet $i || echo 'Ignore file upload error'; rm -f ${i}
   fi
 done
