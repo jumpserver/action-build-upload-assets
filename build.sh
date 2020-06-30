@@ -92,7 +92,7 @@ for i in $(ls);do
     upload_zip $i && rm -f ${i} || exit 3
 
     if [[ -f $i.md5 ]];then
-      upload_octet $i.md5 && rm -f ${i} || exit 4
+      upload_octet $i.md5 && rm -f ${i}.md5 || exit 4
     fi
   else
     upload_octet $i && rm -f ${i} || exit 5
