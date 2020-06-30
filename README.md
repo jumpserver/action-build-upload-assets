@@ -6,6 +6,8 @@
 
 项目中有 build.sh 或者 utils/build.sh, 并且可执行, 默认是在 centos:7 docker中运行构建，构建完成后需要放置到 项目 release 中
 
+更多查看 : https://github.com/ibuler/koko/tree/master/.github/workflows
+
 ## Inputs
 
 ### `os`
