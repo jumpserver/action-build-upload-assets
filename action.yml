@@ -1,5 +1,5 @@
 name: 'JumpServer build and upload release assets'
-description: 'Greet someone and record the time'
+description: 'Common action for create release and build'
 inputs:
   os:  # id of input
     description: 'os the running programs operating system target: one of darwin, freebsd, linux, and so on.'
@@ -13,14 +13,11 @@ inputs:
     description: 'the url for upload, default to release event url '
     required: false
     default: ''
-outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.github_token }}
     - ${{ inputs.os }}
     - ${{ inputs.arch }}
     - ${{ inputs.upload_url }}
