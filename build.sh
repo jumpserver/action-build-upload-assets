@@ -1,18 +1,31 @@
 #!/bin/bash -eux
-#GITHUB_WORKSPACE=/Users/guang/tmp/koko
+GITHUB_WORKSPACE=/Users/guang/tmp/koko
 
 OS=${INPUT_OS-''}
 ARCH=${INPUT_ARCH-''}
 RELEASE_TAG=$(basename "${GITHUB_REF}")
 export VERSION=${RELEASE_TAG:-"master"}
+#INPUT_UPLOAD_URL='https://uploads.github.com/repos/ibuler/koko/releases/27862783/assets'
 if [[ -n "${INPUT_UPLOAD_URL}" ]];then
   RELEASE_ASSETS_UPLOAD_URL=${INPUT_UPLOAD_URL}
 else
   RELEASE_ASSETS_UPLOAD_URL=$(jq -r .release.upload_url < "${GITHUB_EVENT_PATH}")
 fi
 RELEASE_ASSETS_UPLOAD_URL=${RELEASE_ASSETS_UPLOAD_URL%\{?name,label\}}
-#RELEASE_ASSETS_UPLOAD_URL='https://uploads.github.com/repos/ibuler/koko/releases/27862783/assets'
 #INPUT_GITHUB_TOKEN=
+
+function add_pkg() {
+  pkg=$1
+  command apk && apk add ${pkg}
+  command yum && yum install ${pkg}
+  command apt && apt get ${pkg}
+}
+
+if [[ $(uname) != 'Darwin' ]];then
+  command bash || add_pkg bash
+  command curl || add_pkg curl
+fi
+
 
 function get_md5() {
   file=$1
