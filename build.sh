@@ -3,11 +3,12 @@
 
 OS=${INPUT_OS-''}
 ARCH=${INPUT_ARCH-''}
-RELEASE_TAG=$(basename ${GITHUB_REF})
-if [ '${INPUT_UPLOAD_URL}' ];then
+RELEASE_TAG=$(basename "${GITHUB_REF}")
+export VERSION=${RELEASE_TAG:-"master"}
+if [[ -n "${INPUT_UPLOAD_URL}" ]];then
   RELEASE_ASSETS_UPLOAD_URL=${INPUT_UPLOAD_URL}
 else
-  RELEASE_ASSETS_UPLOAD_URL=$(cat ${GITHUB_EVENT_PATH} | jq -r .release.upload_url)
+  RELEASE_ASSETS_UPLOAD_URL=$(jq -r .release.upload_url < "${GITHUB_EVENT_PATH}")
 fi
 RELEASE_ASSETS_UPLOAD_URL=${RELEASE_ASSETS_UPLOAD_URL%\{?name,label\}}
 #RELEASE_ASSETS_UPLOAD_URL='https://uploads.github.com/repos/ibuler/koko/releases/27862783/assets'
@@ -42,15 +43,15 @@ cd ${build_dir} && bash build.sh
 
 # 准备打包
 cd ${workspace}/release
-for i in $(ls);do
+for i in *;do
   if [[ ! -d $i ]];then
     continue
   fi
   if [[ "${OS}" && "${ARCH}" ]];then
-    tar_dirname=$i-${RELEASE_TAG:-"master"}-${OS}-${ARCH}
+    tar_dirname=$i-${VERSION}-${OS}-${ARCH}
     mv $i ${tar_dirname}
   else
-    tar_dirname=$i
+    tar_dirname=$i-${VERSION}
   fi
   tar_filename=${tar_dirname}.tar.gz
   tar czvf ${tar_filename} ${tar_dirname}
@@ -83,7 +84,7 @@ function upload_octet() {
 }
 
 # 打包完上传
-for i in $(ls);do
+for i in *;do
   # 因为可能是md5已被上传了
   if [ ! -f $i ];then
     continue
