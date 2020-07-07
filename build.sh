@@ -1,5 +1,5 @@
-#!/bin/bash -eux
-GITHUB_WORKSPACE=/Users/guang/tmp/koko
+#!/bin/bash -xi
+#GITHUB_WORKSPACE=
 
 OS=${INPUT_OS-''}
 ARCH=${INPUT_ARCH-''}
