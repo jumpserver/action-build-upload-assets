@@ -16,9 +16,9 @@ RELEASE_ASSETS_UPLOAD_URL=${RELEASE_ASSETS_UPLOAD_URL%\{?name,label\}}
 
 function add_pkg() {
   pkg=$1
-  command apk && apk add ${pkg}
-  command yum && yum install ${pkg}
-  command apt && apt get ${pkg}
+  command -v apk && apk add ${pkg} && return 0
+  command -v yum && yum install ${pkg} && return 0
+  command -v apt && apt get ${pkg} && return 0
 }
 
 if [[ $(uname) != 'Darwin' ]];then
