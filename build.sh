@@ -49,10 +49,10 @@ for i in *;do
   fi
   if [[ "${OS}" && "${ARCH}" ]];then
     tar_dirname=$i-${VERSION}-${OS}-${ARCH}
-    mv $i ${tar_dirname}
   else
     tar_dirname=$i-${VERSION}
   fi
+  mv ${i} ${tar_dirname}
   tar_filename=${tar_dirname}.tar.gz
   tar czvf ${tar_filename} ${tar_dirname}
   md5sum=$(get_md5 ${tar_filename})
