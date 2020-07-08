@@ -52,7 +52,7 @@ if [[ -z ${build_dir} ]];then
   exit 10
 fi
 
-cd ${build_dir} && bash -xi build.sh
+cd ${build_dir} && bash -xi build.sh || exit 3
 
 # 准备打包
 cd ${workspace}/release
