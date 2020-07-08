@@ -22,8 +22,8 @@ function add_pkg() {
 }
 
 if [[ $(uname) != 'Darwin' ]];then
-  command bash || add_pkg bash
-  command curl || add_pkg curl
+  command -v bash || add_pkg bash
+  command -v curl || add_pkg curl
 fi
 
 
