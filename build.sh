@@ -55,7 +55,7 @@ fi
 cd ${build_dir} && bash -xi build.sh || exit 3
 
 # 准备打包
-cd ${workspace}/release
+cd ${workspace}/release || exit 5
 for i in *;do
   if [[ ! -d $i ]];then
     continue
