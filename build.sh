@@ -3,10 +3,10 @@
 
 OS=${INPUT_OS-''}
 ARCH=${INPUT_ARCH-''}
-RELEASE_TAG=$(basename "${GITHUB_REF}")
+RELEASE_TAG=$(basename "${GITHUB_REF:-'master'}")
 export VERSION=${RELEASE_TAG:-"master"}
 #INPUT_UPLOAD_URL='https://uploads.github.com/repos/ibuler/koko/releases/27862783/assets'
-if [[ -n "${INPUT_UPLOAD_URL}" ]];then
+if [[ -n "${INPUT_UPLOAD_URL=''}" ]];then
   RELEASE_ASSETS_UPLOAD_URL=${INPUT_UPLOAD_URL}
 else
   RELEASE_ASSETS_UPLOAD_URL=$(jq -r .release.upload_url < "${GITHUB_EVENT_PATH}")
@@ -52,7 +52,7 @@ if [[ -z ${build_dir} ]];then
   exit 10
 fi
 
-cd ${build_dir} && bash -xi build.sh || exit 3
+cd ${build_dir} && bash -xieu build.sh || exit 3
 
 # 准备打包
 cd ${workspace}/release || exit 5
