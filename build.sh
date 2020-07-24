@@ -99,16 +99,16 @@ function upload_octet() {
 # 打包完上传
 for i in *;do
   # 因为可能是md5已被上传了
-  if [ ! -f $i ];then
+  if [[ ! -f $i || "$i" == *.md5 ]];then
     continue
   fi
   if [[ $i == *.tar.gz ]];then
-    upload_zip $i && rm -f ${i} || exit 3
+    upload_zip $i || exit 3
 
     if [[ -f $i.md5 ]];then
-      upload_octet $i.md5 && rm -f ${i}.md5 || exit 4
+      upload_octet $i.md5 || exit 4
     fi
   else
-    upload_octet $i || echo 'Ignore file upload error'; rm -f ${i}
+    upload_octet $i || echo 'Ignore file upload error';
   fi
 done
