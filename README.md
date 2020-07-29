@@ -24,6 +24,12 @@
 
 上传需要的release upload url, 如果没有提供，则尝试从 release event中获取
 
+## Env
+### GITHUB_TOKEN
+
+### ASSETS_UPLOAD_DISABLED
+不再上传
+
 ## Example usage
 
 ```yaml
