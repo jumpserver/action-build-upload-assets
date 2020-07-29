@@ -96,6 +96,11 @@ function upload_octet() {
    return $?
 }
 
+if [[ -n "${ASSETS_UPLOAD_DISABLED-}" ]];then
+  echo "禁用了上传，pass"
+  exit 0
+fi
+
 # 打包完上传
 for i in *;do
   # 因为可能是md5已被上传了
