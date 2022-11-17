@@ -1,5 +1,5 @@
 # Container image that runs your code
-FROM node:10
+FROM node:14.16
 
 # Copies your code file from your action repository to the filesystem path `/` of the container
 COPY *.sh /
