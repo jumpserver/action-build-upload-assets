@@ -17,6 +17,9 @@ if [[ $(uname) != 'Darwin' ]];then
   command -v bash || add_pkg bash
   command -v curl || add_pkg curl
   command -v jq || add_pkg jq
+  command -v git || add_pkg git
+  command -v tar || add_pkg tar
+  command -v unzip || add_pkg unzip
 fi
 
 #INPUT_UPLOAD_URL='https://uploads.github.com/repos/ibuler/koko/releases/27862783/assets'
