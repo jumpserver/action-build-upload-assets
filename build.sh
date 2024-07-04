@@ -43,6 +43,10 @@ function get_md5() {
 # First to build it
 workspace=${GITHUB_WORKSPACE}
 build_dir=''
+
+git config --global --add safe.directory /github/workspace
+git config --global --add safe.directory ${workspace}
+
 if [[ -f ${workspace}/build.sh ]];then
   build_dir=${workspace}
 fi
