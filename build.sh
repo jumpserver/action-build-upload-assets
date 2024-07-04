@@ -5,6 +5,20 @@ OS=${INPUT_OS-''}
 ARCH=${INPUT_ARCH-''}
 RELEASE_TAG=$(basename "${GITHUB_REF:-'master'}")
 export VERSION=${RELEASE_TAG:-"master"}
+
+function add_pkg() {
+  pkg=$1
+  command -v apk && apk add ${pkg} && return 0
+  command -v yum && yum makecache fast && yum install -y ${pkg} && return 0
+  command -v apt && apt-get update && apt-get install -y ${pkg} && return 0
+}
+
+if [[ $(uname) != 'Darwin' ]];then
+  command -v bash || add_pkg bash
+  command -v curl || add_pkg curl
+  command -v jq || add_pkg jq
+fi
+
 #INPUT_UPLOAD_URL='https://uploads.github.com/repos/ibuler/koko/releases/27862783/assets'
 if [[ -n "${INPUT_UPLOAD_URL=''}" ]];then
   RELEASE_ASSETS_UPLOAD_URL=${INPUT_UPLOAD_URL}
@@ -13,19 +27,6 @@ else
 fi
 RELEASE_ASSETS_UPLOAD_URL=${RELEASE_ASSETS_UPLOAD_URL%\{?name,label\}}
 #INPUT_GITHUB_TOKEN=
-
-function add_pkg() {
-  pkg=$1
-  command -v apk && apk add ${pkg} && return 0
-  command -v yum && yum install ${pkg} && return 0
-  command -v apt && apt get ${pkg} && return 0
-}
-
-if [[ $(uname) != 'Darwin' ]];then
-  command -v bash || add_pkg bash
-  command -v curl || add_pkg curl
-fi
-
 
 function get_md5() {
   file=$1
